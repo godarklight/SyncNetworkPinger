@@ -1,0 +1,5 @@
+SyncServer/obj/*
+SyncServer/bin/*
+SyncClient/obj/*
+SyncClient/bin/*
+SyncNetworkPinger.userprefs

@@ -1,0 +1,5 @@
+You can specify the server IP as a command line option.
+
+The server takes no arguments, It's a simple echo server that listens on both TCP and UDP.
+
+The client outputs status messages to STDERR, so a graph can be build from STDOUT.
