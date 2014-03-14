@@ -84,7 +84,7 @@ namespace SyncClient
 			try {
 				tcpState.client.EndConnect (ar);
 				if (tcpState.client != null ? tcpState.client.Connected : false) {
-					double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - startConnectionTime) / 1000000, 4);
+					double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - startConnectionTime) / 10000, 4);
 					Console.Error.WriteLine ("TCP Connected in " + deltaTime + "ms.");
 					isTCPConnected = true;
 				} else {
@@ -101,7 +101,7 @@ namespace SyncClient
 			IPEndPoint endpoint = new IPEndPoint (IPAddress.Any, SERVER_PORT);
 			byte[] newData = udpState.client.EndReceive (ar, ref endpoint);
 			if (newData.Length == 1) {
-				double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - startConnectionTime) / 1000000, 4);
+				double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - startConnectionTime) / 10000, 4);
 				Console.Error.WriteLine ("UDP Connected in " + deltaTime + "ms.");
 				isUDPConnected = true;
 			}
@@ -165,7 +165,7 @@ namespace SyncClient
 				if (newData.Length == 12) {
 					int sequence = BitConverter.ToInt32 (newData, 0);
 					long sendTime = BitConverter.ToInt64 (newData, 4);
-					double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - sendTime) / 1000000, 4);
+					double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - sendTime) / 10000, 4);
 					Console.WriteLine ("UDP " + sequence + " " + deltaTime);
 				}
 				udpConnection.client.BeginReceive (new AsyncCallback (HandleUDPMessage), udpConnection);
@@ -182,7 +182,7 @@ namespace SyncClient
 				if (tcpState.bytes_left == 0) {
 					long sequence = BitConverter.ToInt32 (tcpState.buffer, 0);
 					long sendTime = BitConverter.ToInt64 (tcpState.buffer, 4);
-					double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - sendTime) / 1000000, 4);
+					double deltaTime = Math.Round ((double)(DateTime.UtcNow.Ticks - sendTime) / 10000, 4);
 					Console.WriteLine ("TCP " + sequence + " " + deltaTime);
 					tcpState.buffer = new byte[12];
 					tcpState.bytes_left = 12;
